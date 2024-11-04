@@ -2,8 +2,10 @@
 //Fetch Tickets Using Async/Await and Handle Errors
 async function findUnresolvedTickets() {
     const url = 'https://jsonplaceholder.typicode.com/posts';
+    const loadingIndicator = document.getElementById('loadingIndicator'); 
 
     try {
+        loadingIndicator.style.display = 'block'; 
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -19,8 +21,13 @@ async function findUnresolvedTickets() {
         return ticketsFetched;
     } catch (error) {
         console.error('Error:', error.message);
+    } finally {
+        loadingIndicator.style.display = 'none'; 
     }
 }
+
+//Task 4 within Task 2
+//Dynamically display tickets on the page
 
 //Task 3
 //Dynamically display tickets on the page
@@ -37,7 +44,6 @@ function displayTickets(tickets) {
             <p><strong>Customer Name:</strong> User ID ${ticket.userId}</p>
             <p><strong>Issue Description:</strong> ${ticket.title}</p>
             <p><strong>Details:</strong> ${ticket.body}</p>`;
-
         container.appendChild(ticketElement);
     });
 }
